@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-volume-pod
+spec:
+  nodeName: kind-worker
+  containers:
+    - name: nodename-test
+      image: k8s.gcr.io/busybox
+      # command: [ "/bin/sh", "-c", "ls -l /etc/config/" ]
+      command: [ "tail", "-f", "/dev/null" ]
+      # volumeMounts:
+      # - name: config-volume
+      #   mountPath: /etc/config
+  # volumes:
+  #   - name: config-volume
+  #     configMap:
+  #       # Provide the name of the ConfigMap containing the files you want
+  #       # to add to the container
+  #       name: special-config
+  restartPolicy: Never
