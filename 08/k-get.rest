@@ -1,0 +1,60 @@
+
+
+
+
+###
+curl 'https://127.0.0.1:57792/api/v1/namespaces/default/pods?limit=500' \
+-XGET \ 
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjJRWC13aS1sNTJKSHViSWtNUnFERGdxVVhSS1B2d2RqcXJvN3hZdXBERFEifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzYwNDQ3NTI1LCJpYXQiOjE3NjA0NDM5MjUsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwianRpIjoiNGUzYTZjY2EtNDVmYS00MTk4LTg0MTgtMmJhMTFkNDk3Y2IzIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJkZWZhdWx0Iiwic2VydmljZWFjY291bnQiOnsibmFtZSI6ImplbmtpbnMiLCJ1aWQiOiJkNDRhMGNmNi01ZjI2LTQyMzMtYTg1ZS00YTc5MTczNDQxNWUifX0sIm5iZiI6MTc2MDQ0MzkyNSwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRlZmF1bHQ6amVua2lucyJ9.A-pgyFvZSCQKTUr_80CAmoHGGA7XHMloO1Wy8RZ-6LCZREzdlT_LGdHXjfFLT_IO1Em9nrSodWIC89UPquDVJcqSmkAHq0eEpzNNqdPAAOd5bZQ6IBUNdF8xh5cF-8MSnykhaVVr9F-iZWsVrS1nz2kcqLWjlU-tY3OS7z-A8twIr73wH1LeEVzmW-kjAyXOru7kZzvSeNQAF9vEMipAx50HsGGzLkpiM-DItOUyge-UkzMsSzwesNHT1P8BFAAGCMbJH8Cuw_N7EzRc55xUzm2m0eho5ScPapi-Fp8_MG6Scw6uyFzOxidJ6PDQALJ419KdJSPURyYKyvPMUshjFg" \
+-H "User-Agent: kubectl/v1.34.1 (darwin/arm64) kubernetes/93248f9" \
+-H "Accept: application/json;as=Table;v=v1;g=meta.k8s.io,application/json;as=Table;v=v1beta1;g=meta.k8s.io,application/json" \
+
+response:
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "pods is forbidden: User \"system:serviceaccount:default:jenkins\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\"",
+  "reason": "Forbidden",
+  "details": {
+    "kind": "pods"
+  },
+  "code": 403
+}
+
+# 进行rolebinding的创建后
+response:
+
+
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "Unauthorized",
+  "reason": "Unauthorized",
+  "code": 401
+}
+
+
+###
+curl -v -XGET  -H "User-Agent: kubectl/v1.34.1 (darwin/arm64) kubernetes/93248f9" -H "Accept: application/json;as=Table;v=v1;g=meta.k8s.io,application/json;as=Table;v=v1beta1;g=meta.k8s.io,application/json" 'https://127.0.0.1:57792/api/v1/namespaces/default/pods?limit=500'
+
+
+
+response:
+
+
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "pods is forbidden: User \"system:anonymous\" cannot list resource \"pods\" in API group \"\" in the namespace \"default\"",
+  "reason": "Forbidden",
+  "details": {
+    "kind": "pods"
+  },
+  "code": 403
+}
